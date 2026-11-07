@@ -1,0 +1,65 @@
+[project]
+name = "molformula"
+version = "0.1.0"
+description = "A simple chemical formula processor for analyzing mass spectrometry data"
+readme = "README.md"
+license = "BSD-3-Clause"
+license-files = ["LICENSE"]
+authors = [
+    { name = "Hiroshi Nakayama", email = "64342563+benkeicrab@users.noreply.github.com" },
+    { name = "RIKEN (The Institute of Physical and Chemical Research)"},
+]
+requires-python = ">=3.10"
+dependencies = []
+keywords = [
+    "chemical formula",
+    "molecular formula",
+    "mass spectrometry",
+    "exact mass",
+    "isotopic mass",
+    "isotope",
+    "mz",
+    "proteomics",
+    "lipidomics",
+    "metabolomics",
+    "cheminformatics",
+    "bioinformatics",
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Science/Research",
+    "Topic :: Scientific/Engineering :: Chemistry",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+    "Programming Language :: Python :: 3.15",
+    "Operating System :: OS Independent",
+    "Typing :: Typed",
+]
+
+[project.urls]
+Repository = "https://github.com/benkeicrab/molformula.git"
+Issues = "https://github.com/benkeicrab/molformula/issues"
+
+[dependency-groups]
+dev = [
+    "pytest>=9.1.1",
+]
+
+[tool.pytest.ini_options]
+addopts = ["--doctest-modules"]
+
+[build-system]
+requires = ["uv_build>=0.12.3,<0.13.0"]
+build-backend = "uv_build"
+
+[tool.uv.build-backend]
+source-include = [
+    "tests/**",
+    "examples/**",
+]
