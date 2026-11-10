@@ -340,6 +340,6 @@ Contribution guidelines will be added as the project develops.
 ## References
 1. Hill, E. A., JACS (1900) 22 (8): 478–494.  https://doi.org/10.1021/ja02046a005
 
-2. Atomic mass from NIST Physical Measurement Laboratory  https://physics.nist.gov/cgi-bin/Compositions/stand_alone.pl?ele=&ascii=html&isotype=some
+2. Atomic mass from NIST Physical Measurement Laboratory  https://physics.nist.gov/cgi-bin/Compositions/stand_alone.pl
 
 3. 2022 CODATA recommended value  https://physics.nist.gov/cgi-bin/cuu/Value?eqmeu|search_for=electron+mass

@@ -1,0 +1,10 @@
+cff-version: 1.2.0
+title: "molformula"
+type: software
+version: 0.1.0
+date-released: "2026-11-10"
+license: BSD-3-Clause
+authors:
+  - family-names: Nakayama
+    given-names: Hiroshi
+    affiliation: "Biomolecular Characterization Unit, RIKEN Center for Sustainable Resource Science"
