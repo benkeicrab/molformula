@@ -1,10 +1,32 @@
 cff-version: 1.2.0
+message: "If you use molformula in your research, please cite the associated preprint listed under preferred-citation."
+
 title: "molformula"
 type: software
 version: 0.1.0
 date-released: "2026-11-10"
 license: BSD-3-Clause
+
+repository-code: "https://github.com/benkeicrab/molformula"
+doi: "10.5281/zenodo.24096461"
+
 authors:
   - family-names: Nakayama
     given-names: Hiroshi
     affiliation: "Biomolecular Characterization Unit, RIKEN Center for Sustainable Resource Science"
+    orcid: "https://orcid.org/0009-0008-3631-0445"
+
+preferred-citation:
+  type: article
+  title: "Composable Chemical Formula Transformations with Invariant-Preserving Representations for Mass Spectrometry"
+  authors:
+    - family-names: "Nakayama"
+      given-names: "Hiroshi"
+      affiliation: "Biomolecular Characterization Unit, RIKEN Center for Sustainable Resource Science"
+      orcid: "https://orcid.org/0009-0008-3631-0445"
+    - family-names: "Koike"
+      given-names: "Masami"
+      affiliation: "Biomolecular Characterization Unit, RIKEN Center for Sustainable Resource Science"
+  journal: "ChemRxiv"
+  year: 2026
+  doi: "10.26434/chemrxiv.15012007/v1"

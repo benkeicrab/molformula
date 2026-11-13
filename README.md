@@ -1,6 +1,12 @@
 # molformula
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.24096461.svg)](https://doi.org/10.5281/zenodo.24096461)
+[![ChemRxiv](https://img.shields.io/badge/ChemRxiv-10.26434%2Fchemrxiv.15012007%2Fv1-blue)](https://doi.org/10.26434/chemrxiv.15012007/v1)
+
 A simple, dependency-free Python library for safe chemical-formula manipulation and mass-spectrometry-oriented calculations.
+
+This package is a reference implementation of the architecture described in our preprint:
+> Hiroshi Nakayama and Masami Koike, **"Composable Chemical Formula Transformations with Invariant-Preserving Representations for Mass Spectrometry,"** *ChemRxiv* (2026). https://doi.org/10.26434/chemrxiv.15012007/v1
 
 ## Overview
 
@@ -106,7 +112,7 @@ IonFormula(formula=Formula('C6H11O6'), z=-1)
 179.05611165185906
 ```
 
-Exact mass and m/z are calculated using atomic mass values from NIST Physical Measurement Laboratory [2] and electron mass from 2022 CODATA recommended value [3]
+Exact mass and m/z are calculated using atomic mass values from NIST Physical Measurement Laboratory [2] and the electron mass from the 2022 CODATA recommendations [3].
 
 
 ### Application in peptide MS/MS
@@ -117,13 +123,13 @@ The following example constructs b- and y-ion series from amino-acid residue for
 >>> def b_y_ion_series(seq, z):
 ...     water = Formula('H2O')
 ...     b_ions, y_ions = [], []
-...     l = len(seq)
-...     for i in range(l):
+...     n = len(seq)
+...     for i in range(n):
 ...         b_neutral = sum_formulas(*seq[: i+1])
 ...         b_ion = protonated(b_neutral, z)
 ...         b_ions.append(b_ion)
 ...
-...         y_neutral = sum_formulas(water, *seq[l-1-i: ])
+...         y_neutral = sum_formulas(water, *seq[n-1-i: ])
 ...         y_ion = protonated(y_neutral, z)
 ...         y_ions.append(y_ion)
 ...
@@ -195,7 +201,7 @@ The library has immutable types: Formula and IonFormula, as well as functions fo
 precursor.
 
 
-### Operations to the types
+### Operations
 
 #### Parsing and formatting
 
@@ -205,9 +211,9 @@ precursor.
 
 - `atom_species_counts()`: Return atom-species counts as a new dictionary.
 
-#### Arithmetic operation between Formula
+#### Arithmetic operations on Formulas
 
-The library offers high-level API of arithmetic operations between Formulas. 
+The library offers a high-level API of arithmetic operations on Formulas. 
 
 Intermediates can have negative atom counts; however, the resulting Formula must have non-negative counts and contain at least one atom.
 
@@ -244,10 +250,10 @@ The mass and m/z values are calculated with the atomic/isotopic masses [2] and e
 No explicit decimal rounding is applied to the calculated mass or m/z values.
 
 - `exact_mass()`:
-    Calculates exact mass of Formula. No electron-mass correction is applied.
+    Calculates the exact mass of a Formula. No electron-mass correction is applied.
 
 - `ion_mz()`:
-    Calculates an ion m/z from an instance of IonFormula
+    Calculates the ion m/z of an IonFormula.
     The m/z value of ion: IonFormula is calculated as
 
     (exact_mass(ion.formula) - ion.z * electron_mass) / abs(ion.z)
@@ -331,6 +337,11 @@ However, molformula does not determine whether such ions are chemically plausibl
 
 This project is licensed under the 3-clause BSD License. See LICENSE for details.
 
+## Citation
+
+If you use this software, please cite the preprint above.
+
+
 ## Contributing
 
 Bug reports and suggestions are welcome through GitHub Issues.
@@ -338,7 +349,7 @@ Contribution guidelines will be added as the project develops.
 
 
 ## References
-1. Hill, E. A., JACS (1900) 22 (8): 478–494.  https://doi.org/10.1021/ja02046a005
+1. Hill, E. A. On a system of indexing chemical literature; adopted by the classification division of the U. S. patent office. J. Am. Chem. Soc. 1900, 22 (8): 478–494.  https://doi.org/10.1021/ja02046a005
 
 2. Atomic mass from NIST Physical Measurement Laboratory  https://physics.nist.gov/cgi-bin/Compositions/stand_alone.pl
 

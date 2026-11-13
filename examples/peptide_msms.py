@@ -28,13 +28,13 @@ def b_y_ion_series(
     water = Formula('H2O')
     b_ions: list[IonFormula] = []
     y_ions: list[IonFormula] = []
-    l = len(seq)
-    for i in range(l):
+    n = len(seq)
+    for i in range(n):
         b_neutral = sum_formulas(*seq[: i+1])
         b_ion = protonated(b_neutral, z)
         b_ions.append(b_ion)
 
-        y_neutral = sum_formulas(water, *seq[l-1-i: ])
+        y_neutral = sum_formulas(water, *seq[n-1-i: ])
         y_ion = protonated(y_neutral, z)
         y_ions.append(y_ion)
 

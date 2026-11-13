@@ -45,6 +45,8 @@ classifiers = [
 [project.urls]
 Repository = "https://github.com/benkeicrab/molformula.git"
 Issues = "https://github.com/benkeicrab/molformula/issues"
+Preprint = "https://doi.org/10.26434/chemrxiv.15012007/v1"
+Archive = "https://doi.org/10.5281/zenodo.24096461"
 
 [dependency-groups]
 dev = [
@@ -55,7 +57,7 @@ dev = [
 addopts = ["--doctest-modules"]
 
 [build-system]
-requires = ["uv_build>=0.12.3,<0.13.0"]
+requires = ["uv_build>=0.12.3,<0.14.0"]
 build-backend = "uv_build"
 
 [tool.uv.build-backend]

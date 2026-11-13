@@ -62,14 +62,14 @@ formic_acid_added = make_formula_change(
 
 # Compose adduct-ion generation pipelines and apply across the lipid list
 z = 1
-protonated_mzs = [ion_mz(protonated(identity(l), z))
-                  for l in lipids]
+protonated_mzs = [ion_mz(protonated(identity(lipid), z))
+                  for lipid in lipids]
 print(f'[M+H]+:    {protonated_mzs}')
-sodium_adduct_mzs = [ion_mz(protonated(sodium_substituted(l), z))
-                     for l in lipids]
+sodium_adduct_mzs = [ion_mz(protonated(sodium_substituted(lipid), z))
+                     for lipid in lipids]
 print(f'[M+Na]+:   {sodium_adduct_mzs}')
-formate_adduct_mzs = [ion_mz(deprotonated(formic_acid_added(l), z))
-                      for l in lipids]
+formate_adduct_mzs = [ion_mz(deprotonated(formic_acid_added(lipid), z))
+                      for lipid in lipids]
 print(f'[M+HCOO]-: {formate_adduct_mzs}')
 
 
