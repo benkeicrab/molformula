@@ -1,6 +1,8 @@
 """Small contract tests for the package-level public API."""
 
 import pytest
+from pathlib import Path
+import re
 
 import molformula
 from molformula import Formula, atom_species_counts, exact_mass, to_str
@@ -119,3 +121,24 @@ def test_formula_repr_uses_canonical_format() -> None:
 def test_ordinary_explicit_isotope_pair() -> None:
     assert to_str(Formula('Ca[81Br]Br')) == 'Br[81Br]Ca'
     assert exact_mass(Formula('[81Br]Br')) == pytest.approx(78.9183376 + 80.9162897, rel=1e-14)
+
+
+def test_version_consistency():
+    root = Path(__file__).resolve().parents[1]
+
+    pyproject_text = (root / "pyproject.toml").read_text(encoding="utf-8")
+    m_py = re.search(
+        r'^version\s*=\s*["\']([^"\']+)["\']', pyproject_text, re.MULTILINE
+    )
+    assert m_py is not None, "version not found in pyproject.toml"
+    pyproject_ver = m_py.group(1)
+
+    cff_text = (root / "CITATION.cff").read_text(encoding="utf-8")
+    m_cff = re.search(
+        r'^version:\s*["\']?([^"\'\s#]+)["\']?', cff_text, re.MULTILINE
+    )
+    assert m_cff is not None, "version not found in CITATION.cff"
+    cff_ver = m_cff.group(1)
+
+    assert molformula.__version__ == pyproject_ver
+    assert cff_ver == pyproject_ver

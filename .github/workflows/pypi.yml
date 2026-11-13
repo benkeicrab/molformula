@@ -1,0 +1,66 @@
+name: Publish to PyPI
+
+on:
+  release:
+    types: [published]
+
+permissions:
+  contents: read
+  id-token: write  # for PyPI Trusted Publishing (OIDC)
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    environment:
+      name: pypi
+      url: https://pypi.org/p/molformula
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+
+      - name: Set up Python
+        run: uv python install 3.12
+
+      - name: Verify version consistency
+        env:
+          RELEASE_TAG: ${{ github.ref_name }}
+        run: |
+          uv lock --check
+          uv run --no-project --python 3.12 python -c '
+          import os, re, sys, tomllib
+          from pathlib import Path
+
+          tag = os.environ["RELEASE_TAG"]
+          expected = tag.removeprefix("v")
+
+          with Path("pyproject.toml").open("rb") as f:
+              pyproject_ver = tomllib.load(f)["project"]["version"]
+
+          cff_text = Path("CITATION.cff").read_text(encoding="utf-8")
+          m = re.search(r"^version:\s*[\"'\'']?([^\"'\''\s#]+)[\"'\'']?", cff_text, re.MULTILINE)
+          cff_ver = m.group(1) if m else None
+
+          errors = []
+          if pyproject_ver != expected:
+              errors.append(f"pyproject.toml ({pyproject_ver!r}) != tag ({expected!r})")
+          if cff_ver != expected:
+              errors.append(f"CITATION.cff ({cff_ver!r}) != tag ({expected!r})")
+
+          if errors:
+              sys.exit("Version mismatch detected:\n  - " + "\n  - ".join(errors))
+
+          print(f"All versions matched successfully: {expected}")
+          '
+
+      - name: Run tests before build
+        run: uv run pytest
+
+      - name: Build package
+        run: uv build
+
+      - name: Publish to PyPI
+        run: uv publish
+
