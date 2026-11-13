@@ -14,6 +14,8 @@ This library handles molecular formulas and simple condensed formulas (See Suppo
 The API is designed to support a functional style, using immutable formula values and composable, non-mutating operations.
 It is intended as a foundation for mass spectrometry data processing.
 
+Interactive demo: [![JupyterLite](https://jupyterlite.rtfd.io/en/latest/_static/badge.svg)](https://benkeicrab.github.io/molformula/lab/index.html?path=demo.ipynb)
+
 
 ## Installation
 
