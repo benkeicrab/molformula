@@ -45,6 +45,7 @@ classifiers = [
 [project.urls]
 Repository = "https://github.com/benkeicrab/molformula.git"
 Issues = "https://github.com/benkeicrab/molformula/issues"
+"Interactive Demo" = "https://benkeicrab.github.io/molformula/lab/index.html?path=demo.ipynb"
 Preprint = "https://doi.org/10.26434/chemrxiv.15012007/v1"
 Archive = "https://doi.org/10.5281/zenodo.24096461"
 

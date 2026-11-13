@@ -1,0 +1,58 @@
+name: Build and Deploy JupyterLite
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+
+      - name: Set up Python
+        run: uv python install 3.12
+
+      - name: Build molformula wheel
+        run: uv build --wheel
+
+      - name: Build JupyterLite site
+        run: |
+          uv run --no-project --python 3.12 \
+            --with "jupyterlite-core>=0.8,<0.9" \
+            --with "jupyterlite-pyodide-kernel>=0.8,<0.9" \
+            --with "jupyter-server" \
+            jupyter lite build \
+              --contents notebooks \
+              --piplite-wheels dist \
+              --output-dir _output
+
+      - name: Upload artifact for GitHub Pages
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./_output
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
